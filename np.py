@@ -10,6 +10,9 @@ except pd.errors.ParserError as e:
     print(f"Error reading CSV file: {e}")
     exit(1)
 
+# Clean up the column names
+df.columns = df.columns.str.strip()
+
 # Print the first few rows and the columns of the DataFrame to debug
 print("DataFrame columns:", df.columns)
 print("First few rows of the DataFrame:")
@@ -38,6 +41,9 @@ def categorize_risk(risk):
 
 # Add a numerical risk level column for sorting
 df['Risk Level'] = df['Risk'].apply(categorize_risk)
+
+# Reset the index to avoid ambiguity
+df.reset_index(drop=True, inplace=True)
 
 # Group by Host and sort by Risk Level and CVSS within each group
 grouped_df = df.groupby('Host').apply(lambda x: x.sort_values(by=['Risk Level', 'CVSS'], ascending=[False, False]))
