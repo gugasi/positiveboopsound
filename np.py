@@ -10,8 +10,20 @@ except pd.errors.ParserError as e:
     print(f"Error reading CSV file: {e}")
     exit(1)
 
+# Print the first few rows and the columns of the DataFrame to debug
+print("DataFrame columns:", df.columns)
+print("First few rows of the DataFrame:")
+print(df.head())
+
+# Ensure the required columns exist
+required_columns = ['Plugin ID', 'CVE', 'CVSS']
+for col in required_columns:
+    if col not in df.columns:
+        print(f"Column '{col}' not found in the CSV file. Please check the file format.")
+        exit(1)
+
 # Drop rows with missing Plugin ID, CVE, and CVSS
-df.dropna(subset=['Plugin ID', 'CVE', 'CVSS'], inplace=True)
+df.dropna(subset=required_columns, inplace=True)
 
 # Function to categorize risks
 def categorize_risk(risk):
