@@ -3,9 +3,9 @@ import pandas as pd
 # Define the file path
 file_path = "/home/liveuser/shared/Product _Reference System - Rel5_- Authenticated Nessus_scan n05052824.csv"
 
-# Try reading the CSV file with additional parameters
+# Try reading the CSV file with semicolon delimiter
 try:
-    df = pd.read_csv(file_path, delimiter=',', on_bad_lines='skip', quoting=3, engine='python')
+    df = pd.read_csv(file_path, delimiter=';', on_bad_lines='skip', quoting=3, engine='python')
 except pd.errors.ParserError as e:
     print(f"Error reading CSV file: {e}")
     exit(1)
