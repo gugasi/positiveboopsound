@@ -5,7 +5,7 @@ file_path = "/home/liveuser/shared/Product _Reference System - Rel5_- Authentica
 
 # Try reading the CSV file with additional parameters
 try:
-    df = pd.read_csv(file_path, delimiter=',', on_bad_lines='skip')
+    df = pd.read_csv(file_path, delimiter=',', on_bad_lines='skip', quoting=3, engine='python')
 except pd.errors.ParserError as e:
     print(f"Error reading CSV file: {e}")
     exit(1)
